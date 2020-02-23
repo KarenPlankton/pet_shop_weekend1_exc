@@ -72,11 +72,14 @@ def customer_can_afford_pet(customer, new_pet)
 end
 
 def sell_pet_to_customer(pet_shop, pet, customer)
-  customer[:pets].push(pet)
-  remove_pet_by_name(pet_shop,pet[:name])
-  pet_shop[:admin][:pets_sold]+=1
-  pet_price=pet[:price]
-  customer[:cash]=customer[:cash]-pet_price
-  pet_shop[:admin][:total_cash]=pet_shop[:admin][:total_cash]+pet_price
-
+  if pet==nil || customer_can_afford_pet(customer,pet)==false
+    puts "pet not fount or insuffucuent funds"
+  else
+    customer[:pets].push(pet)
+    remove_pet_by_name(pet_shop,pet[:name])
+    pet_shop[:admin][:pets_sold]+=1
+    pet_price=pet[:price]
+    customer[:cash]=customer[:cash]-pet_price
+    pet_shop[:admin][:total_cash]=pet_shop[:admin][:total_cash]+pet_price
+  end
 end
